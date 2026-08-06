@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\AuthenticationController;
+use App\Http\Controllers\Api\AuthenticationController;
 use App\Http\Controllers\api\CustomerController;
 use App\Http\Controllers\Api\CustomerOrderController;
 use App\Http\Controllers\api\DriverController;
@@ -29,6 +29,31 @@ use App\Http\Controllers\Api\RideController;
 use App\Http\Controllers\Api\RouteController;
 use App\Http\Controllers\DepositDriverController;
 use App\Http\Middleware\LogApiRequest;
+use App\Services\WhatsAppGatewayService;
+
+Route::post('/test-send-wa', function (Request $request, WhatsAppGatewayService $waService) {
+    $request->validate([
+        'phone' => 'required|string',
+    ]);
+
+    $otpDummy = (string) rand(100000, 999999);
+
+    try {
+        $result = $waService->sendOtp($request->phone, $otpDummy);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'OTP berhasil dikirim ke WhatsApp',
+            'otp_sent' => $otpDummy,
+            'gateway_response' => $result,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ], 500);
+    }
+});
 
 Route::get('/location/search', [LocationController::class, 'search']);
 Route::post('test-fcm', [SharedController::class, 'testFcm']);
@@ -38,8 +63,17 @@ Route::post('test-fcm', [SharedController::class, 'testFcm']);
 Route::middleware(LogApiRequest::class)->group(function () {
 
     Route::get('/user', function (Request $request) {
+        $user = $request->user();
 
-        return $request->user();
+        // Konversi pin ke integer jika nilainya ada
+        if (!is_null($user->pin)) {
+            $user->pin = (int) $user->pin;
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $user
+        ]);
     })->middleware('auth:sanctum');
 
     Route::get('/merchant', function (Request $request) {

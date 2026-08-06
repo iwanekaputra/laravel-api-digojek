@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomerResource;
@@ -21,7 +21,7 @@ class AuthenticationController extends Controller
     public function isNohpExist(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nohp' => 'required|string|min:10|max:15|regex:/^[0-9]+$/', // pastikan nohp hanya berisi angka dan panjangnya sesuai
+            'nohp' => 'required|string|min:10|max:20|regex:/^[0-9]+$/', // pastikan nohp hanya berisi angka dan panjangnya sesuai
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +58,7 @@ class AuthenticationController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:customers,email,',
-            'nohp' => 'required|numeric|digits_between:10,15|unique:customers,nohp',
+            'nohp' => 'required|numeric|digits_between:10,20|unique:customers,nohp',
             'otp' => 'required|numeric|digits:6',
             'referal' => 'nullable|string|max:255',
             'nik' => [
@@ -198,7 +198,7 @@ class AuthenticationController extends Controller
     public function sendWa(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nohp' => 'required|numeric|digits_between:10,15',  // Pastikan nomor HP valid
+            'nohp' => 'required|numeric|digits_between:10,20',  // Pastikan nomor HP valid
         ], [
             'nohp.required' => 'Nomor HP wajib diisi.',
             'nohp.numeric' => 'Nomor HP harus berupa angka.',
@@ -234,7 +234,7 @@ class AuthenticationController extends Controller
             [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:customers,email,',
-                'nohp' => 'required|numeric|digits_between:10,15|unique:customers,nohp',
+                'nohp' => 'required|numeric|digits_between:10,20|unique:customers,nohp',
                 'nik' => [
                     'required',
                     'string',
@@ -285,7 +285,7 @@ class AuthenticationController extends Controller
         $rules = [
             'nohp' => $isTestNumber
                 ? 'required' // Jika nomor tester, cukup pastikan terisi
-                : 'required|numeric|digits_between:10,15', // Jika bukan, validasi ketat
+                : 'required|numeric|digits_between:10,20', // Jika bukan, validasi ketat
 
             'otp'  => $isTestNumber
                 ? 'nullable' // Jika nomor tester, cukup pastikan terisi
