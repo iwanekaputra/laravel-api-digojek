@@ -219,7 +219,7 @@ class AuthenticationController extends Controller
         $customer = Customer::where('nohp', $request->nohp)->first();
 
         $userOtp = $this->generateOtp($request->nohp);
-        $userOtp->sendEmail($customer->email);
+        $userOtp->sendWa($request->nohp);
 
         return response()->json([
             'success' => true,
@@ -265,7 +265,7 @@ class AuthenticationController extends Controller
 
 
         $userOtp = $this->generateOtpRegister($request->nohp);
-        $userOtp->sendEmail($request->email);
+        $userOtp->sendWa($request->nohp);
 
         return response()->json([
             'success' => true,

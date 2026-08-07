@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\FonnteService;
+use App\Services\WhatsAppGatewayService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
@@ -54,16 +55,8 @@ class OtpCustomer extends Model
 
     public function sendWa($nohp)
     {
-        $fonnte = new FonnteService();
-        $fonnte->sendMessage(
-            $nohp,
-            "*" . $this->otp . "* adalah kode verifikasi anda.\n\n" .
-                "WASPADA PENIPUAN. Demi keamanan, jangan bagikan kode ini. berlaku 3menit.\n\n" .
-                "*UPDATE* terbaru aplikasi DIGOJEK, mohon untuk mengirimkan NIK KTP anda ke Chat ini untuk aktifasi kembali akun anda.\n" .
-                "Mohon di isi\n" .
-                "NIK KTP:\n\n" .
-                "DIGOJEK Call 0813"
-        );
+        $waService = new WhatsAppGatewayService();
+        $waService->sendOtp($nohp, $this->otp);
     }
 
     public function sendEmail($email)

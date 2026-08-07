@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\FonnteService;
+use App\Services\WhatsAppGatewayService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
@@ -17,8 +18,8 @@ class OtpRegisterMerchant extends Model
 
     public function sendWa($nohp)
     {
-        $fonnte = new FonnteService();
-        $fonnte->sendMessage($nohp,  "*" . $this->otp . "* adalah kode verifikasi anda.\n\nWASPADA PENIPUAN. Demi keamanan, jangan bagikan kode ini. berlaku 3menit.\n\DIGOJEK Call 0813");
+        $waService = new WhatsAppGatewayService();
+        $waService->sendOtp($nohp, $this->otp);
     }
 
     public function sendEmail($email)
