@@ -61,12 +61,7 @@ class AuthenticationController extends Controller
             'nohp' => 'required|numeric|digits_between:10,20|unique:customers,nohp',
             'otp' => 'required|numeric|digits:6',
             'referal' => 'nullable|string|max:255',
-            'nik' => [
-                'required',
-                'string',
-                'digits:16',
-                'regex:/^[0-9]{16}$/',
-            ],
+
         ], [
             'nohp.required' => 'Nomor HP wajib diisi.',
             'nohp.numeric' => 'Nomor HP harus berupa angka.',
@@ -99,7 +94,7 @@ class AuthenticationController extends Controller
                 'nohp' => $request->nohp,
                 'status' => 'active',
                 'referal' => $request->referal,
-                'nik' => $request->nik
+                'nik' => '0000000000000000'
             ]);
 
             $otpRegisterCustomer->delete();
@@ -235,12 +230,7 @@ class AuthenticationController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:customers,email,',
                 'nohp' => 'required|numeric|digits_between:10,20|unique:customers,nohp',
-                'nik' => [
-                    'required',
-                    'string',
-                    'digits:16',
-                    'regex:/^[0-9]{16}$/',
-                ],
+
             ],
             [
                 'nohp.required' => 'Nomor HP wajib diisi.',
@@ -318,7 +308,7 @@ class AuthenticationController extends Controller
         $otpCustomer = OtpCustomer::where('customer_id', $customer->id)->first();
 
         // cek apakah customer ini inactive
-        if ($customer->status == 'inactive' || $customer->nik == null) {
+        if ($customer->status == 'inactive') {
             return response()->json(['message' => 'User is inactive'], 403);
         }
 

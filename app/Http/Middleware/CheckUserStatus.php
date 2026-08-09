@@ -31,7 +31,7 @@ class CheckUserStatus
 
         // Cek apakah user aktif (misalnya ada kolom 'is_active' di tabel users)
         $user = Auth::user();
-        if ($user->status == 'inactive' || $user->nik == null) {
+        if ($user->status == 'inactive') {
             return response()->json(['message' => 'User is inactive'], 403);
         }
 
