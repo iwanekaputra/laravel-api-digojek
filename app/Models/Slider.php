@@ -22,6 +22,6 @@ class Slider extends Model
 
     public function getLinkImageAttribute()
     {
-        return 'https://admin.digojek.com/storage/images/slider/' . $this->image;
+        return 'https://admin.digojek.com/storage/banners/' . $this->image;
     }
 }
