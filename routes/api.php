@@ -201,7 +201,7 @@ Route::middleware(LogApiRequest::class)->group(function () {
         Route::get('/v2/drivers/deposit', [DepositDriverController::class, 'index']);
         Route::get('/v2/drivers/deposit/{depositDriver}', [DepositDriverController::class, 'show']);
 
-
+        Route::post('driver/update-status-driver', [DriverController::class, 'updateStatusDriver']);
         // new
         Route::get('/driver/orders/incoming', [DriverOrderController::class, 'incoming']);
         Route::post('/driver/accept-order', [DriverOrderController::class, 'acceptOrder']);
