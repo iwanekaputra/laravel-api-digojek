@@ -70,11 +70,11 @@ class WhatsAppGatewayService
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            throw new RuntimeException(sprintf(
-                'Gagal mengirim OTP WhatsApp: HTTP %d - %s',
-                $response->status(),
-                $response->body() ?: '(respons kosong)'
-            ));
+            // throw new RuntimeException(sprintf(
+            //     'Gagal mengirim OTP WhatsApp: HTTP %d - %s',
+            //     $response->status(),
+            //     $response->body() ?: '(respons kosong)'
+            // ));
         }
 
         return $response->json() ?? ['status' => $response->status()];
