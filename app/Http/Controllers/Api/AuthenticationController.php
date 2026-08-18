@@ -214,7 +214,7 @@ class AuthenticationController extends Controller
         $customer = Customer::where('nohp', $request->nohp)->first();
 
         $userOtp = $this->generateOtp($request->nohp);
-        $userOtp->sendWa($request->nohp);
+        // $userOtp->sendWa($request->nohp);
 
         return response()->json([
             'success' => true,
