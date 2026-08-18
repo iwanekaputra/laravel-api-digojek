@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Livewire\Pages\Login;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -15,4 +18,4 @@
 
 
 
-// Route::get('/', Login::class)->name('login');
+Route::get('/', Login::class)->name('login');
