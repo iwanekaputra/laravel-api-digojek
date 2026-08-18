@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthenticationController;
-use App\Http\Controllers\api\CustomerController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\CustomerOrderController;
-use App\Http\Controllers\api\DriverController;
+use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\Api\DriverOrderController;
-use App\Http\Controllers\api\VehicletypeController;
+use App\Http\Controllers\Api\VehicletypeController;
 use App\Http\Controllers\AuthenticationDriverController;
 use App\Http\Controllers\AuthenticationMerchantController;
 use App\Http\Controllers\CategoryMerchantController;
